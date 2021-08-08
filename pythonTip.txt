@@ -1,1 +1,4 @@
+list 에러 시 'str' object has no attribute 'append'가 나타날 시 해당 형에 뒤의 형식적용을 할 수 없을 때 나타나는 에러
+-> list에 대한 추가 함수 append인데, str형에 적용하려해서 나타나는 에러
+해결 : list1.append(list(list2))
 

@@ -2,3 +2,12 @@ list 에러 시 'str' object has no attribute 'append'가 나타날 시 해당 �
 -> list에 대한 추가 함수 append인데, str형에 적용하려해서 나타나는 에러
 해결 : list1.append(list(list2))
 
+python function내 기능:
+iterable -> 자신의 멤버를 한 번에 한나씩 리턴하는 객체. list, str, tuple, dict 등
+sequence -> int 타입 인덱스를 통해 원소에 접근할 수 있는 iterable. iterable의 low category list, str, tuple 등
+unpacking -> 구조체 메소드의 컴파일된 형식(format)을 지정된 데이터 형식의 반복 인스턴스를 포함하는 버퍼 압축풀기하여 스트리밍 제공
+
+lambda, map, divmod
+
+map: map(function, iterable...) -> 함수를 iterable(배열 자료형)으로 하나씩 함수에 실행함.
+divmod: print(*divmod(x, y)) -> 수가 클 수록 유리 a/b, a%b는 수가 작을 수록 유리

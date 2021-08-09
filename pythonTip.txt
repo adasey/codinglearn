@@ -1,3 +1,6 @@
+변수 선언 시:
+def 같은 함수 내 선언 시 지역 변수, 외부 선언 시 전역 변수이나, 내부 호출 시 불가능 하기 때문에 C++이나 C, java와는 반대로 내부 함수에서 Global이라는 형을 선언해 주어야만 전역 변수의 값도 변경된다.
+
 list 에러 시 'str' object has no attribute 'append'가 나타날 시 해당 형에 뒤의 형식적용을 할 수 없을 때 나타나는 에러
 -> list에 대한 추가 함수 append인데, str형에 적용하려해서 나타나는 에러
 해결 : list1.append(list(list2))
@@ -8,6 +11,13 @@ sequence -> int 타입 인덱스를 통해 원소에 접근할 수 있는 iterab
 unpacking -> 구조체 메소드의 컴파일된 형식(format)을 지정된 데이터 형식의 반복 인스턴스를 포함하는 버퍼 압축풀기하여 스트리밍 제공
 
 lambda, map, divmod
+
+list 문의 다양한 형태
+[a for a in 수의 배열 or 배열 if 조건식] 
+[(a, b) for a, b in enumerate(배열)] 도 가능, 2개의 값 받을 시 ()필수
+list(map(lambda x : x + 1, 배열))
+list(map(lambda x, y : x * y, 배열, 배열))
+list(map(lambda x, y : x * y if x * y > 10 else None, 배열, 배열)) -> 조건식 사용 시 else는 필수라 함 else구문 필요 없을 시 None선언
 
 map: map(function, iterable...) -> 함수를 iterable(배열 자료형)으로 하나씩 함수에 실행함.
 divmod: print(*divmod(x, y)) -> 수가 클 수록 유리 a/b, a%b는 수가 작을 수록 유리

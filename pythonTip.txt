@@ -2,6 +2,9 @@
 def 같은 함수 내 선언 시 지역 변수, 외부 선언 시 전역 변수이나, 내부 호출 시 불가능 하기 때문에 C++이나 C, java와는 반대로 내부 함수에서 Global이라는 형을 선언해 주어야만 전역 변수의 값도 변경된다.
 
 주석 시: ''' 안의 내용은 전부 주석 /' '/ 와 같다 ''' or # 뒤의 내용은 전부 주석처리됨
+주석은 #의 경우 ''' '''보다 강해 '''를 주석할 땐 # 사용시 가능
+
+for, while의 루프문의 경우 c처럼 continue는 아예 그 자리에서 다음값의 루프로 실행되고, break역시 루프문 밖으로 나온다.
 
 list 에러 시 'str' object has no attribute 'append'가 나타날 시 해당 형에 뒤의 형식적용을 할 수 없을 때 나타나는 에러
 -> list에 대한 추가 함수 append인데, str형에 적용하려해서 나타나는 에러
@@ -32,3 +35,4 @@ print(test)
 map: map(function, iterable...) -> 함수를 iterable(배열 자료형)으로 하나씩 함수에 실행함.
 divmod: print(*divmod(x, y)) -> 수가 클 수록 유리 a/b, a%b는 수가 작을 수록 유리
 int(): int(a, b)일때 a가 b진법수 일때 10진법으로 바꿔 줌
+

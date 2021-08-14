@@ -4,7 +4,12 @@ def 같은 함수 내 선언 시 지역 변수, 외부 선언 시 전역 변수�
 주석 시: ''' 안의 내용은 전부 주석 /' '/ 와 같다 ''' or # 뒤의 내용은 전부 주석처리됨
 주석은 #의 경우 ''' '''보다 강해 '''를 주석할 땐 # 사용시 가능
 
+변수 값 넘김 시 a = 1 , b = 2 -> a = 2, b = 1 등을 할 때 a = tmp, 대신 a, b = b, a 같은 방식으로 사용 가능하다.
+
+가장 큰 값으로 선언 시 float('inf') , float('-inf') 등을 선언하면 어떠한 값보다도 반드시 큰 값으로 나타낸다.
+
 for, while의 루프문의 경우 c처럼 continue는 아예 그 자리에서 다음값의 루프로 실행되고, break역시 루프문 밖으로 나온다.
+for문 뒤에 if 문 혹은 for: ~ else:로 for문 바로 뒤에 else문을 사용해 for문 밖으로 나올 시 바로 else문으로 넘어가게 할 수 있다.
 
 list 에러 시 'str' object has no attribute 'append'가 나타날 시 해당 형에 뒤의 형식적용을 할 수 없을 때 나타나는 에러
 -> list에 대한 추가 함수 append인데, str형에 적용하려해서 나타나는 에러
@@ -25,6 +30,12 @@ list(map(lambda x : x + 1, 배열))
 list(map(lambda x, y : x * y, 배열, 배열))
 list(map(lambda x, y : x * y if x * y > 10 else None, 배열, 배열)) -> 조건식 사용 시 else는 필수라 함 else구문 필요 없을 시 None선언
 
+ex)
+test = list(map(lambda x, a: x[a] + " " + x[a+1] 
+if a < len(secW) - 2 and len(x[a]) + len(x[a+1]) + 1 <= K else None, secW, range(len(secW)-1)))
+print(test)
+결과 = ['n i', 'a p', None]
+
 리스트 2차원 배열 시 각 항의 행, 열 앞부분 출력
 comprehension 사용 [[row[col] for row in matrix] for col in range(len(matrix))]
 list(map(list, zip(*mylist)))
@@ -34,12 +45,24 @@ zip()함수를 통해 zip("배열1","배열2","배열3"...) 배열 순서 대로
 
 list나 어떠한 값이 여러번 반복되고 싶을땐, 값 * n 숫자 로 반복되게 만들 수 있음
 
-ex)
-test = list(map(lambda x, a: x[a] + " " + x[a+1] 
-if a < len(secW) - 2 and len(x[a]) + len(x[a+1]) + 1 <= K else None,
-secW, range(len(secW)-1)))
-print(test)
-결과 = ['n i', 'a p', None]
+2차원 배열 -> 1차원 배열
+import itertools
+my_list = [[1, 2], [3, 4], [5, 6]]
+# 1
+answer = sum(my_list, [])
+# 2 - itertools.chain : list(itertools.chain.from_iterable(my_list))
+# 3 - itertools와 unpacking : list(itertools.chain(*my_list))
+# 4 - list comprehension : [element for array in my_list for element in array]
+# 5 - reduce 1 :
+from functools import reduce
+list(reduce(lambda x, y: x+y, my_list))
+# 6 - reduce 2 :
+import operator
+list(reduce(operator.add, my_list))
+각 원소 길이(개수)가 같아야함
+# 7 - numpy flatten :
+import numpy as np
+np.array(my_list).flatten().tolist()
 
 map: map(function, iterable...) -> 함수를 iterable(배열 자료형)으로 하나씩 함수에 실행함.
 divmod: print(*divmod(x, y)) -> 수가 클 수록 유리 a/b, a%b는 수가 작을 수록 유리
@@ -59,3 +82,47 @@ string.octdigits : 8진수
 string.punctuation : String of ASCII characters which are considered punctuation characters in the C locale.
 string.printable : String of ASCII characters which are considered printable. This is a combination of digits, ascii_letters, punctuation, and whitespace.
 string.whitespace : A string containing all ASCII characters that are considered whitespace. This includes the characters space, tab, linefeed, return, formfeed, and vertical tab.
+
+import itertools 라이브러리 참고 후 활용
+집합 a,b의 cartesian product : list(itertools.product(iterable1, iterable2, iterable3)))
+import collections
+collections.Counter -> list의 원소의 개수를 세어줌
+
+이진 탐색 방식 사용 시
+함수 ->
+def bisect(a, x, lo=0, hi=None):
+    if lo < 0:
+        raise ValueError('lo must be non-negative')
+    if hi is None:
+        hi = len(a)
+    while lo < hi:
+        mid = (lo + hi) // 2
+        if a[mid] < x:
+            lo = mid + 1
+        else:
+            hi = mid
+    return lo
+
+mylist = [1, 2, 3, 7, 9, 11, 33]
+print(bisect(mylist, 3))
+
+대신
+import bisect
+bisect.bisect(mylist, 3)
+이진 탐색으로 값을 찾는 방식. 값의 정렬이 오름차순일 때 사용가능하다.
+
+클래스의 내부 객체에 대해 출력하고 싶을 시
+class Coord(object):
+    def __init__ (self, x, y):
+        self.x, self.y = x, y
+    def __str__ (self):
+        return '({}, {})'.format(self.x, self.y)
+
+point = Coord(1, 2)
+위 coord의 __str__를 통해 출력함수를 간단히 내장할 수 있다. -> self는 c++나 java의 this를 통한 자기 변수와 같음
+
+with - as
+with open('myfile.txt') as file:
+    for line in file.readlines():
+        print(line.strip().split('\t')) -> EOF를 만나 close를 선언하지 않아도 txt파일은 자동 종료된다.
+socket이나 http파일에서도 가능하다.

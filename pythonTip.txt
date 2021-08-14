@@ -25,6 +25,15 @@ list(map(lambda x : x + 1, 배열))
 list(map(lambda x, y : x * y, 배열, 배열))
 list(map(lambda x, y : x * y if x * y > 10 else None, 배열, 배열)) -> 조건식 사용 시 else는 필수라 함 else구문 필요 없을 시 None선언
 
+리스트 2차원 배열 시 각 항의 행, 열 앞부분 출력
+comprehension 사용 [[row[col] for row in matrix] for col in range(len(matrix))]
+list(map(list, zip(*mylist)))
+
+zip()함수를 통해 zip("배열1","배열2","배열3"...) 배열 순서 대로 각 배열의 값을 순차적 탐색 2차원 배열의 경우 [0][0] [1][0] [2][0]... [0][1] [1][1] [2][1]... 순으로 추출
+-> zip 함수는 다항입력 시 list중 더 길이가 짧은 list를 기준으로 먼저 탐색을 끝냄. itertools.zip_longest()를 사용하면 더 짧은 list가 끝나도 계속 탐색
+
+list나 어떠한 값이 여러번 반복되고 싶을땐, 값 * n 숫자 로 반복되게 만들 수 있음
+
 ex)
 test = list(map(lambda x, a: x[a] + " " + x[a+1] 
 if a < len(secW) - 2 and len(x[a]) + len(x[a+1]) + 1 <= K else None,
@@ -35,3 +44,18 @@ print(test)
 map: map(function, iterable...) -> 함수를 iterable(배열 자료형)으로 하나씩 함수에 실행함.
 divmod: print(*divmod(x, y)) -> 수가 클 수록 유리 a/b, a%b는 수가 작을 수록 유리
 int(): int(a, b)일때 a가 b진법수 일때 10진법으로 바꿔 줌
+
+문자열 포메팅 시 기존의 %를 이용한 문자열 조정도 가능하지만 가운데, 좌, 우 정렬도 가능한 string 함수가 있다.
+str.ljust(num) 좌측 정렬 str.center(num) 중앙 정렬 str.rjust(num) 우측 정렬 -> num만큼 공백이 생김.
+string 함수의 join을 통해 문자열 합치기 가능 +도 문자열의 합
+
+string 출력용 상수
+string.ascii_letters : 알파벳의 소문자, 대문자 전부를 출력 This value is not locale-dependent.
+string.ascii_lowercase : 알파벳의 소문자. 변경될 일이 없음 This value is not locale-dependent
+string.ascii_uppercase : 알파벳의 대문자. 변경될 일이 없음 This value is not locale-dependent
+string.digits : 숫자 0 ~ 9
+string.hexdigits : 16진수
+string.octdigits : 8진수
+string.punctuation : String of ASCII characters which are considered punctuation characters in the C locale.
+string.printable : String of ASCII characters which are considered printable. This is a combination of digits, ascii_letters, punctuation, and whitespace.
+string.whitespace : A string containing all ASCII characters that are considered whitespace. This includes the characters space, tab, linefeed, return, formfeed, and vertical tab.

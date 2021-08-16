@@ -126,3 +126,4 @@ with open('myfile.txt') as file:
     for line in file.readlines():
         print(line.strip().split('\t')) -> EOF를 만나 close를 선언하지 않아도 txt파일은 자동 종료된다.
 socket이나 http파일에서도 가능하다.
+

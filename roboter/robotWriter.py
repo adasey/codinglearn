@@ -34,19 +34,13 @@ class RobotWriter():
             if x != 'Name,Count':
                 line_field.append(x.split(','))
 
-        for a, b in line_field:
-            if b == col:
-                line_field[a+1] += 1
+        for a, b in enumerate(line_field):
+            if b[0] == col:
+                b[1] = str(int(b[1]) + 1)
 
         with open(location, "w") as file:
             line_edit = csv.DictWriter(file, fieldnames=self.fieldnames)
             line_edit.writeheader()
 
-            for x in range(0, len(line_field), 2):
-                line_edit({"Name": line_field[x], "Count": str(int(line_field[x + 1]) + 1)})
-
-
-r = robRead.RobotReader("d:/Project/Python/codinglearn/fileSys/test.csv")
-w = RobotWriter()
-w.lineAppend(w.basic_location+"fileSys/test.csv", "A")
-print(r.fileReader())
+            for a, b in enumerate(line_field):
+                line_edit.writerow({"Name": b[0], "Count": b[1]})

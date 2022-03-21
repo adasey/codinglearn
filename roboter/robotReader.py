@@ -1,13 +1,16 @@
 class RobotReader():
     def __init__(self, file_location):
         self.file_location = file_location
-        self.text_line = []
+        self.__text_line = []
+
+    def textLine(self):
+        return self.__text_line
 
     def fileReader(self):
         with open(self.file_location, 'r') as file:
-            self.text_line = self.lineReader(file)
+            self.__text_line = self.lineReader(file)
 
-            return self.text_line
+            return self.textLine()
 
     def lineReader(self, file):
         text_line = []
@@ -18,11 +21,11 @@ class RobotReader():
                 if not line:
                     break
 
-                except_line = self.exceptN(line)
+                excepted_line = self.exceptN(line)
 
-                for i in except_line:
-                    if i:
-                        text_line.append(i)
+                for line in excepted_line:
+                    if line:
+                        text_line.append(line)
                     
                     else:
                         break

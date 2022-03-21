@@ -1,5 +1,4 @@
 import csv
-import robotReader as robRead
 
 class RobotWriter():
     basic_location = "d:/Project/Python/codinglearn/"
@@ -26,6 +25,15 @@ class RobotWriter():
             
             line_add.writerow({"Name": col, "Count": "1"})
 
+    def fileWriter(self, location, group):
+        with open(location, 'w') as file:
+            line_add = csv.DictWriter(file, fieldnames=self.fieldnames)
+            line_add.writeheader()
+
+            for row1, row2 in group:
+                line_add.writerow({"Name": row1, "Count": row2})
+
+"""
     def lineEditCount(self, location, col):
         line_col = robRead.RobotReader(location)
         line_field = []
@@ -44,3 +52,4 @@ class RobotWriter():
 
             for a, b in enumerate(line_field):
                 line_edit.writerow({"Name": b[0], "Count": b[1]})
+"""

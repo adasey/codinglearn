@@ -30,9 +30,9 @@ class Script(object):
         ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
     """
 
-    def blue(script):
+    def blue(self, script):
         return colored(script, 'blue')
 
-    def green(script):
+    def green(self, script):
         return colored(script, 'green')
 

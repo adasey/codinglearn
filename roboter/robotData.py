@@ -10,11 +10,7 @@ class Group(object):
         self._count[self._name.index(name)] = str(int(self._count[self._name.index(name)]) + 1)
 
     def Group(self):
-        return [(name, count) for name, count in zip(self._name, self._count)]
-
-    def defaultGroup(self, name, count):
-        self._name = name
-        self._count = count
+        return [ (name, count) for name, count in zip(self._name, self._count)]
 
 
 class People(Group):
@@ -33,9 +29,6 @@ class People(Group):
 
         else:
             return 0
-
-    def nameList(self):
-        return self.name
 
     def countList(self):
         return self.count
@@ -73,11 +66,28 @@ class Rest(Group):
         else:
             return 0
 
-    def nameList(self):
-        return self.name
-
     def countList(self):
         return self.count
+
+    def setGroupSorted(self):
+        self._count = self.groupSort()
+        print()
+        i = 0
+
+        for key, val in self.groupDictReverse().items():
+            if self._count[i] == key:
+                self._name[i] = val
+
+            i += 1
+
+    def groupSort(self):
+        return sorted(self.groupDictReverse())
+
+    def groupDictReverse(self):
+        return { count : name for name, count in zip(self._name, self._count)}
+
+    def groupDict(self):
+        return { name : count for name, count in zip(self._name, self._count)}
 
     def appendGroup(self, name, count):
         self._name.append(name)
@@ -93,6 +103,17 @@ class Rest(Group):
             is_had = False
 
         return is_had
+
+    def isHadSecond(self):
+        is_second = True
+
+        try:
+            self.name[1]
+
+        except:
+            is_second = False
+
+        return is_second
 
     def isRestExist(self):
         try:

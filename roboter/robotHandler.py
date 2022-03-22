@@ -1,6 +1,5 @@
 import robotReader as robRead
 import robotWriter as robWrite
-import robotData as robData
 
 class HandleRobot():
     NAME_OR_COUNT = "Name,Count"

@@ -34,6 +34,13 @@ class Guest(object):
         self._name.append(name)
         self._count.append(count)
 
+    def isRestExist(self):
+        try:
+            if self._name[1]:
+                return True
+        except:
+            return False
+
     def isHadName(self, name):
         is_had = True
 

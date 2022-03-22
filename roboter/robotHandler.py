@@ -1,5 +1,12 @@
+import os
 from roboter import robotReader as robRead
 from roboter import robotWriter as robWrite
+
+
+class FileCheck():
+
+    def fileExist(self, path):
+        return os.path.exists(path)
 
 class HandleRobot():
     NAME_OR_COUNT = "Name,Count"

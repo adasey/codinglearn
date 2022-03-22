@@ -1,11 +1,14 @@
 import csv
 
+
 class RobotWriter():
     BASIC_LOCATION = "d:/Project/Python/codinglearn/"
 
     def __init__(self):
-        self.RANKING_FILE_LOCATION = self.BASIC_LOCATION + "ranking.csv"
-        self.PEOPLE_FILE_LOCATION = self.BASIC_LOCATION + "people.csv"
+        self.RANK = "ranking.csv"
+        self.PEOPLE = "people.csv"
+        self.RANKING_FILE_LOCATION = self.BASIC_LOCATION + self.RANK
+        self.PEOPLE_FILE_LOCATION = self.BASIC_LOCATION + self.PEOPLE
         self.fieldnames = ["Name", "Count"]
 
     def InitFileWriter(self, file_location):

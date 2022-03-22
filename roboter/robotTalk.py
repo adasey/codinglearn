@@ -1,5 +1,6 @@
 from termcolor import colored
 
+
 class Script(object):
     welcome = """\
         ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -7,6 +8,12 @@ class Script(object):
 
         우선 이름을 말해주세요.
         ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    """
+
+    welcome_back = """\
+        **************************************************************
+        $name 씨, 어서오세요! 돌아오신걸 환영합니다.
+        **************************************************************
     """
 
     restaurant_script = """\
@@ -36,3 +43,8 @@ class Script(object):
     def green(self, script):
         return colored(script, 'green')
 
+    def yellow(self, script):
+        return colored(script, 'yellow')
+
+    def red(self, script):
+        return colored(script, 'red')

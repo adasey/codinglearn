@@ -29,7 +29,56 @@ talk = robTalk.Script()
 people = robData.People()
 rest = robData.Rest()
 
-USER_ANSWER = ["yes", "no", 'y', 'n']
+USER_ANSWER = ["yes", "no"]
+
+
+def userRecommandRestaurant():
+    template_text = string.Template(talk.restaurant_script)
+    contents = template_text.substitute(name = name)
+    print(talk.green(contents))
+    restaurant = input()
+    rest.appendGroup(restaurant, "1")
+
+def recommandedRestaurant():
+    template_text = string.Template(talk.recommand_script)
+    contents = template_text.substitute(restaurant = rest.countList[0])
+    print(talk.green(contents))
+    answer = input()
+
+    if isYesOrNo(answer):
+        rest.countPlus(answer)
+
+    else:
+        
+        if rest.isHadSecond():
+            nextRecommanded()
+
+        else:
+            userRecommandRestaurant()
+
+
+def isYesOrNo(answer):
+
+    if answer in USER_ANSWER:
+        
+        if answer in USER_ANSWER[0]:
+            return True
+
+        elif answer in USER_ANSWER[1]:
+            return False
+
+    else:
+        print("잘못된 답변입니다. [yes/no, y/n] 중에서 답변해주세요.")
+        answer = input()
+        return isYesOrNo(answer)
+
+def nextRecommanded():
+    template_text = string.Template(talk.recommand_script)
+    contents = template_text.substitute(restaurant = rest.countList[1])
+    print(talk.green(contents))
+    answer = input()
+    rest.countPlus(answer)
+
 
 try:
     while True:
@@ -63,57 +112,11 @@ try:
 
         
         if rest.isRestExist():
-            template_text = string.Template(talk.recommand_script)
-            recommand = rest.Name()
-            contents = template_text.substitute(restaurant = recommand[0])
-            print(talk.green(contents))
-            user_answer = input()
-
-            while True:
-
-                if user_answer in USER_ANSWER:
-
-                    if user_answer in USER_ANSWER[1] or user_answer in USER_ANSWER[3]:
-
-                        if rest.isHadSecond():
-                            template_text = string.Template(talk.recommand_script)
-                            contents = template_text.substitute(restaurant = recommand[1])
-                            print(talk.green(contents))
-                            recommand = input()
-
-                        else:
-                            template_text = string.Template(talk.restaurant_script)
-                            contents = template_text.substitute(name = name)
-                            print(talk.green(contents))
-                            recommand = input()
-                    
-                    
-                    elif user_answer not in USER_ANSWER:
-                        print("옳은 대답이 아닙니다. [yes/no] 또는 [y/n] 중에서 대답해주세요.")
-                        user_answer = input()
-
-                    else:
-                        rest.countPlus(recommand)
-                        break
-
-                    
-                    print(user_answer in USER_ANSWER)
-                    if user_answer in USER_ANSWER:
-                        rest.appendGroup(recommand, "1")
-                        break
-
-
-                else:
-                    print("옳은 대답이 아닙니다. [yes/no] 또는 [y/n] 중에서 대답해주세요.")
-                    user_answer = input()
-
+            recommandedRestaurant()
 
         else:
-            template_text = string.Template(talk.restaurant_script)
-            contents = template_text.substitute(name = name)
-            print(talk.green(contents))
-            restaurant = input()
-            rest.appendGroup(restaurant, "1")
+            userRecommandRestaurant()
+
 
         handle_people.saveFile(people.Group())
         rest.setGroupSorted()

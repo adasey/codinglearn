@@ -67,7 +67,7 @@ class Rest(Group):
             return 0
 
     def countList(self):
-        return self.count
+        return self._count
 
     def setGroupSorted(self):
         self._count = self.groupSort()

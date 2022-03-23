@@ -1,0 +1,7 @@
+*.bak
+*.bak.*
+*.ckpt
+*.old
+*.pyc
+
+/__pycache__

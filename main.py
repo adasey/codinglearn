@@ -31,32 +31,6 @@ rest = robData.Rest()
 
 USER_ANSWER = ["yes", "no"]
 
-
-def userRecommandRestaurant():
-    template_text = string.Template(talk.restaurant_script)
-    contents = template_text.substitute(name = name)
-    print(talk.green(contents))
-    restaurant = input()
-    rest.appendGroup(restaurant, "1")
-
-def recommandedRestaurant():
-    template_text = string.Template(talk.recommand_script)
-    contents = template_text.substitute(restaurant = rest.countList[0])
-    print(talk.green(contents))
-    answer = input()
-
-    if isYesOrNo(answer):
-        rest.countPlus(answer)
-
-    else:
-        
-        if rest.isHadSecond():
-            nextRecommanded()
-
-        else:
-            userRecommandRestaurant()
-
-
 def isYesOrNo(answer):
 
     if answer in USER_ANSWER:
@@ -71,13 +45,6 @@ def isYesOrNo(answer):
         print("잘못된 답변입니다. [yes/no, y/n] 중에서 답변해주세요.")
         answer = input()
         return isYesOrNo(answer)
-
-def nextRecommanded():
-    template_text = string.Template(talk.recommand_script)
-    contents = template_text.substitute(restaurant = rest.countList[1])
-    print(talk.green(contents))
-    answer = input()
-    rest.countPlus(answer)
 
 
 try:
@@ -112,10 +79,40 @@ try:
 
         
         if rest.isRestExist():
-            recommandedRestaurant()
+            template_text = string.Template(talk.recommand_script)
+            contents = template_text.substitute(restaurant = rest.countList[0])
+            print(talk.green(contents))
+
+            answer = input()
+
+            if isYesOrNo(answer):
+                rest.countPlus(answer)
+
+            else:
+                    
+                if rest.isHadSecond():
+                    template_text = string.Template(talk.recommand_script)
+                    contents = template_text.substitute(restaurant = rest.countList[1])
+                    print(talk.green(contents))
+                    
+                    answer = input()
+                    rest.countPlus(answer)
+
+                else:
+                    template_text = string.Template(talk.restaurant_script)
+                    contents = template_text.substitute(name = name)
+                    print(talk.green(contents))
+                    
+                    restaurant = input()
+                    rest.appendGroup(restaurant, "1")
 
         else:
-            userRecommandRestaurant()
+            template_text = string.Template(talk.restaurant_script)
+            contents = template_text.substitute(name = name)
+            print(talk.green(contents))
+            
+            restaurant = input()
+            rest.appendGroup(restaurant, "1")
 
 
         handle_people.saveFile(people.Group())
@@ -128,7 +125,9 @@ try:
         
         break
 
-
-except Exception as ex:
+except Exception as error:
     write_people.InitFileWriter(write_people.PEOPLE_FILE_LOCATION)
-    print(ex)
+    write_rest.InitFileWriter(write_rest.RANKING_FILE_LOCATION)
+
+    print(error.with_traceback)
+    print(error)

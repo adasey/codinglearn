@@ -18,9 +18,6 @@ class Conversation(object):
         self.write_people.InitFileWriter(self.write_people.PEOPLE_FILE_LOCATION)
         self.write_rest.InitFileWriter(self.write_rest.RANKING_FILE_LOCATION)
 
-    if not is_people:
-        initFile()
-
     handle_people = robHandle.HandleRobot(write_people.PEOPLE_FILE_LOCATION)
     handle_ranking = robHandle.HandleRobot(write_rest.RANKING_FILE_LOCATION)
 
@@ -47,13 +44,14 @@ class Conversation(object):
             return self.isYesOrNo(answer)
 
     def TalkAboutRestaurant(self):
+        if not self.is_people:
+            self.initFile()
+
         try:
             while True:
                 people_text = self.handle_people.textChange()
                 ranking_text = self.handle_ranking.textChange()
 
-                user_answer = ""
-                is_yes = False
                 contents = ""
                 template_text = ""
 

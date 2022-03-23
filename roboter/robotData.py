@@ -56,6 +56,7 @@ class Rest(Group):
     def __init__(self):
         super().__init__()
 
+    @property
     def Name(self):
         return self._name
 
@@ -66,25 +67,24 @@ class Rest(Group):
         else:
             return 0
 
+    @property
     def countList(self):
         return self._count
 
     def setGroupSorted(self):
-        self._count = self.groupSort()
-        print()
+        temp = self.groupDict()
+        sorted = self.groupSort()
+
+        self._name = sorted
         i = 0
 
-        for key, val in self.groupDictReverse().items():
-            if self._count[i] == key:
-                self._name[i] = val
+        for key in sorted:
+            self._count[i] = temp[key]
 
             i += 1
 
     def groupSort(self):
-        return sorted(self.groupDictReverse())
-
-    def groupDictReverse(self):
-        return { count : name for name, count in zip(self._name, self._count)}
+        return sorted(self.groupDict(), key=self.groupDict().__getitem__, reverse=True)
 
     def groupDict(self):
         return { name : count for name, count in zip(self._name, self._count)}
